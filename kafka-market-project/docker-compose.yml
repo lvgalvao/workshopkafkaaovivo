@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  producer:
+    build: ./producer
+    environment:
+      - BOOTSTRAP_SERVERS=${BOOTSTRAP_SERVERS}
+      - SASL_USERNAME=${SASL_USERNAME}
+      - SASL_PASSWORD=${SASL_PASSWORD}
+      - TOPIC_NAME=${TOPIC_NAME}
+    deploy:
+      replicas: 1
+
+  consumer:
+    build: ./consumer
+    environment:
+      - BOOTSTRAP_SERVERS=${BOOTSTRAP_SERVERS}
+      - SASL_USERNAME=${SASL_USERNAME}
+      - SASL_PASSWORD=${SASL_PASSWORD}
+      - TOPIC_NAME=${TOPIC_NAME}
+
+  dashboard:
+    build: ./dashboard
+    ports:
+      - "8501:8501"
